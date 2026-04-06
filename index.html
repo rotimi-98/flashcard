@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yoruba Flashcards</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Shown until React mounts. If this never disappears, JS did not load (e.g. file opened from disk instead of Vite). -->
+      <div
+        class="boot-fallback"
+        style="
+          padding: 2rem;
+          font-family: system-ui, sans-serif;
+          color: #111827;
+          background: #fff;
+          max-width: 40rem;
+          margin: 0 auto;
+          line-height: 1.5;
+          text-align: left;
+        "
+      >
+        <p style="margin: 0 0 0.75rem; font-weight: 600">Loading Yoruba Flashcards…</p>
+        <p style="margin: 0; font-size: 0.875rem; color: #4b5563">
+          If this message stays on screen, the app is not being served correctly. In a terminal at the project root run
+          <code style="background:#f3f4f6;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.9em">npm run dev</code>
+          and open the URL Vite prints (for example
+          <code style="background:#f3f4f6;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.9em">http://localhost:5173</code>).
+          Opening <code style="background:#f3f4f6;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.9em">index.html</code>
+          directly from the file system will not run the app.
+        </p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
