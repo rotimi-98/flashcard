@@ -1,0 +1,22 @@
+.shell {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  color: var(--text, #5c5668);
+}
+
+.main {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 1126px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 1rem 1.25rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 1.5rem 1.5rem 2.5rem;
+  }
+}

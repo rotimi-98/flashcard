@@ -7,7 +7,15 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'docs', 'node_modules']),
+  globalIgnores([
+    'dist',
+    'docs',
+    'node_modules',
+    'e2e',
+    'playwright.config.ts',
+    'playwright-report',
+    'test-results',
+  ]),
   {
     files: ['src/**/*.{ts,tsx}'],
     extends: [

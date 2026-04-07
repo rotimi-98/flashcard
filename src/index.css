@@ -1,15 +1,32 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
+  --text: #5c5668;
+  --text-h: #1c1917;
+  --bg: #faf8f5;
+  --bg-muted: #f3f0ea;
+  --border: #e8e4dc;
+  --code-bg: #ede9e1;
+  /* Primary: teal (spec §9.1) */
+  --accent: #0f766e;
+  --accent-bright: #14b8a6;
+  --accent-bg: rgba(20, 184, 166, 0.14);
+  --accent-border: rgba(15, 118, 110, 0.35);
+  /* Secondary accents for variety */
+  --accent-warm: #d97706;
+  --accent-warm-bg: rgba(217, 119, 6, 0.12);
+  --accent-indigo: #4f46e5;
+  --accent-indigo-bg: rgba(79, 70, 229, 0.1);
+  --accent-rose: #e11d48;
+  --accent-rose-bg: rgba(225, 29, 72, 0.1);
   --social-bg: rgba(244, 243, 236, 0.5);
+  --page-gradient: linear-gradient(
+    165deg,
+    #faf8f5 0%,
+    #f0fdfa 42%,
+    #fff7ed 100%
+  );
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(15, 118, 110, 0.08) 0 10px 24px -8px,
+    rgba(0, 0, 0, 0.06) 0 4px 12px -4px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -34,17 +51,32 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
+    --text: #a8a29e;
+    --text-h: #fafaf9;
+    --bg: #1c1917;
+    --bg-muted: #292524;
+    --border: #44403c;
+    --code-bg: #292524;
+    --accent: #2dd4bf;
+    --accent-bright: #5eead4;
+    --accent-bg: rgba(45, 212, 191, 0.12);
+    --accent-border: rgba(94, 234, 212, 0.35);
+    --accent-warm: #fbbf24;
+    --accent-warm-bg: rgba(251, 191, 36, 0.12);
+    --accent-indigo: #a5b4fc;
+    --accent-indigo-bg: rgba(165, 180, 252, 0.12);
+    --accent-rose: #fb7185;
+    --accent-rose-bg: rgba(251, 113, 133, 0.12);
     --social-bg: rgba(47, 48, 58, 0.5);
+    --page-gradient: linear-gradient(
+      165deg,
+      #1c1917 0%,
+      #134e4a 38%,
+      #1e1b4b 100%
+    );
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      rgba(0, 0, 0, 0.45) 0 12px 28px -8px,
+      rgba(0, 0, 0, 0.25) 0 4px 12px -4px;
   }
 
   #social .button-icon {
@@ -64,7 +96,7 @@
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
-  background: var(--bg);
+  background: transparent;
   padding: 1rem;
 }
 
@@ -75,7 +107,8 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--bg);
+  background: var(--page-gradient);
+  background-attachment: fixed;
   color: var(--text);
 }
 

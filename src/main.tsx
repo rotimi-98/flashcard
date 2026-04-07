@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { AppProvider } from './context/AppProvider.tsx'
 import { ErrorBoundary } from './ErrorBoundary.tsx'
 
 function mount(): void {
@@ -18,7 +19,9 @@ function mount(): void {
     createRoot(rootEl).render(
       <StrictMode>
         <ErrorBoundary>
-          <App />
+          <AppProvider>
+            <App />
+          </AppProvider>
         </ErrorBoundary>
       </StrictMode>,
     )

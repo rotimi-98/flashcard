@@ -9,6 +9,7 @@ Browser-based Yoruba vocabulary learning with flashcards, quizzes, and progress 
 - Vite
 - ESLint + Prettier
 - Vitest (unit tests)
+- Playwright (E2E tests)
 
 ## Setup
 
@@ -31,6 +32,10 @@ Open the URL shown in the terminal (default `http://localhost:5173`).
 | `npm run lint` | Run ESLint on `src/`                           |
 | `npm run format` | Format `src/` with Prettier                  |
 | `npm run test` | Run Vitest unit tests                          |
+| `npm run test:e2e` | Run Playwright E2E tests (starts dev server automatically) |
+| `npm run test:e2e:ui` | Open Playwright UI mode for debugging |
+
+First-time E2E setup: `npx playwright install chromium` (or `npx playwright install` for all browsers).
 
 ## Project structure (initial)
 
@@ -39,6 +44,7 @@ Open the URL shown in the terminal (default `http://localhost:5173`).
 - `src/App.tsx`, `src/main.tsx` — app entry
 - `public/` — static assets
 - `docs/` — specification and implementation checklist
+- `e2e/` — Playwright end-to-end tests
 
 ## Formatting
 

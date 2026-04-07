@@ -24,6 +24,12 @@
   color: CanvasText;
 }
 
+.app-hint {
+  margin-top: 1rem !important;
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
 @media (prefers-color-scheme: dark) {
   .app {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);

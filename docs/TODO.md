@@ -50,7 +50,7 @@
 
 ## Phase 2 — Data Layer & State Management
 
-- [ ] **2.1 Create the default card dataset**
+- [x] **2.1 Create the default card dataset**
   - **File:** `src/data/defaultCards.ts`
   - **Acceptance Criteria:**
     - Contains a minimum of 100 `Flashcard` objects with `isPreloaded: true`.
@@ -58,7 +58,7 @@
     - Every card has a unique `id` (UUID v4 format), a non-empty `yoruba` field with correct tone marks, and a non-empty `english` field.
     - The file imports and exports without TypeScript errors.
 
-- [ ] **2.2 Implement `useLocalStorage` hook**
+- [x] **2.2 Implement `useLocalStorage` hook**
   - **File:** `src/hooks/useLocalStorage.ts`
   - **Acceptance Criteria:**
     - Signature matches `function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void]` (§7.3).
@@ -67,8 +67,8 @@
     - When `localStorage` is unavailable (e.g., private browsing throws), the hook falls back to in-memory state and logs a `console.warn`.
     - Unit test: setter persists a value that is readable by a subsequent `getItem` call on a mocked `localStorage`.
 
-- [ ] **2.3 Implement `AppContext` and `useReducer`**
-  - **File:** `src/context/AppContext.tsx`
+- [x] **2.3 Implement `AppContext` and `useReducer`**
+  - **Files:** `src/context/AppProvider.tsx`, `src/context/app-context.ts`, `src/context/appReducer.ts`, `src/context/useApp.ts`
   - **Acceptance Criteria:**
     - Context provides the full `PersistedState` shape and a `dispatch` function.
     - All 10 action types from §8 are handled: `ADD_CARD`, `EDIT_CARD`, `DELETE_CARD`, `RECORD_OUTCOME`, `START_SESSION`, `END_SESSION`, `RESET_WRONG_FLAGS`, `RESET_ALL_PROGRESS`, `UPDATE_SETTINGS`, `LOAD_STATE`.
@@ -76,7 +76,7 @@
     - A `useEffect` watching state changes calls `saveState()` after every mutation.
     - On app init, `LOAD_STATE` is dispatched with data from `loadState()`; if `null`, the default dataset is used.
 
-- [ ] **2.4 Implement schema version migration / reset prompt**
+- [x] **2.4 Implement schema version migration / reset prompt**
   - **Acceptance Criteria:**
     - A `CURRENT_SCHEMA_VERSION` constant is defined and checked on `LOAD_STATE`.
     - If the stored `schemaVersion` does not match, a modal/dialog prompts the user: *"Your saved data is from an older version. Reset and start fresh?"* with Confirm/Cancel buttons (§10).
@@ -87,14 +87,14 @@
 
 ## Phase 3 — Routing & Shell Layout
 
-- [ ] **3.1 Install and configure React Router v6**
+- [x] **3.1 Install and configure React Router v6**
   - **Acceptance Criteria:**
     - `react-router-dom` v6 is installed and listed in `package.json`.
     - All six routes from §4.2 (`/`, `/study`, `/study/redo`, `/quiz`, `/cards`, `/stats`) are registered in `App.tsx`.
     - Navigating to each route renders the correct page component without a 404 or blank screen.
     - The router uses `BrowserRouter` (or `createBrowserRouter`); no hash-based routing.
 
-- [ ] **3.2 Build the `Layout` and `Navbar` components**
+- [x] **3.2 Build the `Layout` and `Navbar` components**
   - **Files:** `src/components/Layout/Layout.tsx`, `Navbar.tsx`
   - **Acceptance Criteria:**
     - `Navbar` displays links to Home, Study, Quiz, Cards, and Stats.
@@ -103,7 +103,7 @@
     - Layout is responsive: on mobile the nav collapses or stacks; on desktop it displays horizontally.
     - All nav links are keyboard-navigable and have visible focus indicators.
 
-- [ ] **3.3 Build the `HomePage`**
+- [x] **3.3 Build the `HomePage`**
   - **File:** `src/pages/HomePage.tsx`
   - **Acceptance Criteria:**
     - Displays the app name and a brief description.
