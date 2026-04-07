@@ -1,0 +1,41 @@
+---
+description: Testing conventions for Vitest unit tests and Playwright E2E tests
+alwaysApply: true
+---
+
+# Testing
+
+## Unit Tests (Vitest + Testing Library)
+
+- Colocate tests next to source: `src/foo/bar.ts` → `src/foo/bar.test.ts`
+- Import test utilities from `vitest`, not from globals
+- Use `@testing-library/react` (`renderHook`, `act`) for hooks; use `jsdom` via `@vitest-environment jsdom` pragma when DOM is needed
+- Prefer `describe`/`it` blocks; name `it` cases as plain-English behaviours
+- Build a `baseState()` helper when tests share a common starting state
+- Run with `npm run test` (`vitest run`)
+
+```ts
+// ❌ BAD – vague name, no describe grouping
+test('works', () => { ... })
+
+// ✅ GOOD
+describe('fisherYatesShuffle', () => {
+  it('returns a new array and does not mutate the original', () => { ... })
+})
+```
+
+## E2E Tests (Playwright)
+
+- Place specs in `e2e/` with the `.spec.ts` suffix
+- Prefer accessible locators: `getByRole`, `getByText`, `getByLabel` over CSS selectors
+- Group related flows with `test.describe`; use `test.beforeEach` for shared setup
+- Assert URL and visible headings/text after navigation
+- Run with `npm run test:e2e` (dev server auto-starts via `playwright.config.ts`)
+
+```ts
+// ❌ BAD – brittle CSS selector
+await page.locator('.btn-primary').click()
+
+// ✅ GOOD – accessible role selector
+await page.getByRole('link', { name: 'Study' }).click()
+```
