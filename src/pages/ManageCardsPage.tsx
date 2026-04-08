@@ -6,6 +6,7 @@ import {
   useState,
   type FormEvent,
 } from 'react'
+import { CharacterPicker } from '../components/CharacterPicker/CharacterPicker.tsx'
 import { useApp } from '../context/useApp.ts'
 import type { Flashcard } from '../types/index.ts'
 import { speak } from '../utils/speak.ts'
@@ -99,6 +100,7 @@ function CardForm({
   const [errors, setErrors] = useState<{ yoruba?: string; english?: string }>(
     {},
   )
+  const yorubaRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -151,17 +153,26 @@ function CardForm({
         <label className={styles.formLabel} htmlFor="card-yoruba">
           Yoruba
         </label>
-        <input
-          id="card-yoruba"
-          className={`${styles.formInput} ${errors.yoruba ? styles.inputError : ''}`}
-          type="text"
-          value={yoruba}
-          onChange={(e) => {
-            setYoruba(e.target.value)
-            if (errors.yoruba) setErrors((p) => ({ ...p, yoruba: undefined }))
-          }}
-          autoFocus
-        />
+        <div className={styles.inputWithPicker}>
+          <input
+            ref={yorubaRef}
+            id="card-yoruba"
+            className={`${styles.formInput} ${errors.yoruba ? styles.inputError : ''}`}
+            type="text"
+            value={yoruba}
+            onChange={(e) => {
+              setYoruba(e.target.value)
+              if (errors.yoruba) setErrors((p) => ({ ...p, yoruba: undefined }))
+            }}
+            autoFocus
+          />
+          <CharacterPicker
+            targetRef={yorubaRef}
+            onInsert={() => {
+              if (errors.yoruba) setErrors((p) => ({ ...p, yoruba: undefined }))
+            }}
+          />
+        </div>
         {errors.yoruba && (
           <p className={styles.errorText} role="alert">
             {errors.yoruba}

@@ -79,6 +79,17 @@
   border-color: var(--accent-rose, #e11d48);
 }
 
+.inputWithPicker {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.inputWithPicker .formInput {
+  flex: 1;
+  min-width: 0;
+}
+
 .formTextarea {
   resize: vertical;
   min-height: 3.5rem;
