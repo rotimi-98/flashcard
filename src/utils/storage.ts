@@ -22,18 +22,9 @@ export function loadState(): PersistedState | null {
 }
 
 /**
- * Serialises and saves state. Re-throws `QuotaExceededError` so the UI can show a toast (§10).
+ * Serialises and saves state.
+ * Throws on failure (e.g. QuotaExceededError) so callers can surface it to the user.
  */
 export function saveState(state: PersistedState): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-  } catch (e) {
-    if (
-      e instanceof DOMException &&
-      (e.name === 'QuotaExceededError' || e.code === 22)
-    ) {
-      throw e
-    }
-    throw e
-  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
 }

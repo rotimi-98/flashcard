@@ -7,4 +7,5 @@ export type AppContextValue = {
   dispatch: Dispatch<AppAction>
 }
 
+/** Initialised as `null` so `useApp` can enforce that consumers sit inside `AppProvider`. */
 export const AppContext = createContext<AppContextValue | null>(null)

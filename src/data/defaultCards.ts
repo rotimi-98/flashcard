@@ -3,7 +3,7 @@ import type { Flashcard } from '../types/index.ts'
 /** Stable ISO timestamp for all preloaded cards (bundle date). */
 const PRELOADED_CREATED = '2026-04-06T12:00:00.000Z'
 
-/** Deterministic UUID v4–style ids so defaults stay stable across sessions. */
+/** Deterministic UUID v4-style ids so preloaded cards keep the same id across sessions. */
 function makeId(index: number): string {
   const n = index + 1
   return `10000000-0000-4000-8000-${n.toString(16).padStart(12, '0')}`
@@ -130,16 +130,13 @@ const ROWS: ReadonlyArray<readonly [string, string] | readonly [string, string, 
   ['rọrọ', 'easy'],
 ]
 
-export const defaultCards: Flashcard[] = ROWS.map((row, i) => {
-  const yoruba = row[0]!
-  const english = row[1]!
-  const notes = row.length > 2 ? row[2] : undefined
-  return {
+export const defaultCards: Flashcard[] = ROWS.map(
+  ([yoruba, english, notes], i) => ({
     id: makeId(i),
     yoruba,
     english,
     ...(notes !== undefined ? { notes } : {}),
     isPreloaded: true,
     createdAt: PRELOADED_CREATED,
-  }
-})
+  }),
+)

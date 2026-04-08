@@ -29,6 +29,7 @@ export type AppAction =
   | { type: 'UPDATE_SETTINGS'; payload: Partial<AppSettings> }
   | { type: 'LOAD_STATE'; payload: PersistedState }
 
+/** Pure reducer — every case returns a new state object without side effects. */
 export function appReducer(state: PersistedState, action: AppAction): PersistedState {
   switch (action.type) {
     case 'LOAD_STATE':
@@ -92,7 +93,7 @@ export function appReducer(state: PersistedState, action: AppAction): PersistedS
         timesStudied: prev.timesStudied + 1,
         timesCorrect: prev.timesCorrect + (correct ? 1 : 0),
         timesWrong: prev.timesWrong + (correct ? 0 : 1),
-        isMarkedWrong: correct ? false : true,
+        isMarkedWrong: !correct,
         lastStudied: now,
       }
       const records = [...state.records]

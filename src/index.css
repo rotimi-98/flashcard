@@ -9,7 +9,6 @@
   --accent: #0f766e;
   --accent-bright: #14b8a6;
   --accent-bg: rgba(20, 184, 166, 0.14);
-  --accent-border: rgba(15, 118, 110, 0.35);
   /* Secondary accents for variety */
   --accent-warm: #d97706;
   --accent-warm-bg: rgba(217, 119, 6, 0.12);
@@ -17,7 +16,6 @@
   --accent-indigo-bg: rgba(79, 70, 229, 0.1);
   --accent-rose: #e11d48;
   --accent-rose-bg: rgba(225, 29, 72, 0.1);
-  --social-bg: rgba(244, 243, 236, 0.5);
   --page-gradient: linear-gradient(
     165deg,
     #faf8f5 0%,
@@ -60,14 +58,12 @@
     --accent: #2dd4bf;
     --accent-bright: #5eead4;
     --accent-bg: rgba(45, 212, 191, 0.12);
-    --accent-border: rgba(94, 234, 212, 0.35);
     --accent-warm: #fbbf24;
     --accent-warm-bg: rgba(251, 191, 36, 0.12);
     --accent-indigo: #a5b4fc;
     --accent-indigo-bg: rgba(165, 180, 252, 0.12);
     --accent-rose: #fb7185;
     --accent-rose-bg: rgba(251, 113, 133, 0.12);
-    --social-bg: rgba(47, 48, 58, 0.5);
     --page-gradient: linear-gradient(
       165deg,
       #1c1917 0%,
@@ -79,9 +75,6 @@
       rgba(0, 0, 0, 0.25) 0 4px 12px -4px;
   }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
 }
 
 #root {
@@ -149,15 +142,11 @@ p {
   margin: 0;
 }
 
-code,
-.counter {
+code {
   font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
   color: var(--text-h);
-}
-
-code {
   font-size: 15px;
   line-height: 135%;
   padding: 4px 8px;

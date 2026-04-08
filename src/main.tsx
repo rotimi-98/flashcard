@@ -5,6 +5,7 @@ import App from './App.tsx'
 import { AppProvider } from './context/AppProvider.tsx'
 import { ErrorBoundary } from './ErrorBoundary.tsx'
 
+/** Bootstrap the React tree, with graceful fallback messages if the root element is missing or render fails. */
 function mount(): void {
   const rootEl = document.getElementById('root')
   if (!rootEl) {
