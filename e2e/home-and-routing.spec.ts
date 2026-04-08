@@ -82,14 +82,14 @@ test.describe('Navbar routing', () => {
 })
 
 test.describe('Direct URLs', () => {
-  test('/study/redo shows redo copy', async ({ page }) => {
+  test('/study/redo shows empty state when no wrong cards exist', async ({ page }) => {
     await page.goto('/study/redo')
     await expect(page).toHaveURL(/\/study\/redo$/)
     await expect(
-      page.getByRole('heading', { level: 1, name: 'Redo wrong cards' }),
+      page.getByRole('heading', { name: 'No cards to redo!' }),
     ).toBeVisible()
     await expect(
-      page.getByText(/You are in redo mode/i),
+      page.getByText(/you don't have any wrong cards/i),
     ).toBeVisible()
   })
 
