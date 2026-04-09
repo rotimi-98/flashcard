@@ -4,6 +4,21 @@ import type { PersistedState } from '../types/index.ts'
 export const STORAGE_KEY = 'yoruba_flashcards_v1'
 
 /**
+ * Tests whether localStorage is both defined and writable.
+ * Returns `false` in private browsing or if the browser blocks storage.
+ */
+export function isStorageAvailable(): boolean {
+  const testKey = '__storage_test__'
+  try {
+    localStorage.setItem(testKey, '1')
+    localStorage.removeItem(testKey)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
  * Reads and parses persisted state. Returns `null` if the key is absent or JSON is invalid.
  */
 export function loadState(): PersistedState | null {

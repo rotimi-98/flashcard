@@ -13,6 +13,7 @@
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .card.flipped {

@@ -1,11 +1,14 @@
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Relative asset paths so production builds work when hosted from a subpath or opened from dist/ without a root URL.
   base: './',
-  plugins: [react()],
+  plugins: [
+    react(),
+    visualizer({ filename: 'bundle-stats.html', gzipSize: true }),
+  ],
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],

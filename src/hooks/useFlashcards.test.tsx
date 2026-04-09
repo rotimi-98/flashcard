@@ -29,7 +29,7 @@ function makeState(overrides: Partial<PersistedState> = {}): PersistedState {
 
 function makeWrapper(state: PersistedState, dispatch = vi.fn()) {
   return function Wrapper({ children }: { children: ReactNode }) {
-    const value: AppContextValue = { state, dispatch }
+    const value: AppContextValue = { state, dispatch, storageAvailable: true }
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>
   }
 }

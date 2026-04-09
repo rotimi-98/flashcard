@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { ToastProvider } from './components/Toast/Toast.tsx'
 import { AppProvider } from './context/AppProvider.tsx'
 import { ErrorBoundary } from './ErrorBoundary.tsx'
 
@@ -20,9 +21,11 @@ function mount(): void {
     createRoot(rootEl).render(
       <StrictMode>
         <ErrorBoundary>
-          <AppProvider>
-            <App />
-          </AppProvider>
+          <ToastProvider>
+            <AppProvider>
+              <App />
+            </AppProvider>
+          </ToastProvider>
         </ErrorBoundary>
       </StrictMode>,
     )

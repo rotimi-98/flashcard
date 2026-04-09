@@ -1,0 +1,32 @@
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  margin: 0 auto 1rem;
+  max-width: 44rem;
+  background: color-mix(in srgb, #e11d48 10%, var(--bg, #faf8f5));
+  border: 1px solid color-mix(in srgb, #e11d48 25%, var(--border, #e8e4dc));
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text, #5c5668);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .banner {
+    background: color-mix(in srgb, #e11d48 10%, var(--bg, #1c1917));
+    border-color: color-mix(in srgb, #e11d48 25%, var(--border, #44403c));
+  }
+}

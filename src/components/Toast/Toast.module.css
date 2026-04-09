@@ -1,0 +1,67 @@
+.container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  max-width: 28rem;
+  background: color-mix(in srgb, var(--accent-warm, #d97706) 14%, var(--bg, #faf8f5));
+  border: 1px solid color-mix(in srgb, var(--accent-warm, #d97706) 35%, var(--border, #e8e4dc));
+  color: var(--text-h, #1c1917);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.message {
+  flex: 1;
+  min-width: 0;
+}
+
+.dismiss {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--text, #5c5668);
+  opacity: 0.6;
+  padding: 0;
+}
+
+.dismiss:hover {
+  opacity: 1;
+}
+
+.dismiss:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .toast {
+    background: color-mix(in srgb, var(--accent-warm, #d97706) 14%, var(--bg, #1c1917));
+    border-color: color-mix(in srgb, var(--accent-warm, #d97706) 30%, var(--border, #44403c));
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+}

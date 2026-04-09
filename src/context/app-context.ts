@@ -5,6 +5,7 @@ import type { AppAction } from './appReducer.ts'
 export type AppContextValue = {
   state: PersistedState
   dispatch: Dispatch<AppAction>
+  storageAvailable: boolean
 }
 
 /** Initialised as `null` so `useApp` can enforce that consumers sit inside `AppProvider`. */

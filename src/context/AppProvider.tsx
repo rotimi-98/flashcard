@@ -10,7 +10,8 @@ import {
 import { CURRENT_SCHEMA_VERSION } from '../constants/schema.ts'
 import type { PersistedState } from '../types/index.ts'
 import { createInitialState } from '../utils/createInitialState.ts'
-import { loadState, saveState } from '../utils/storage.ts'
+import { isStorageAvailable, loadState, saveState } from '../utils/storage.ts'
+import { useToast } from '../components/Toast/Toast.tsx'
 import { SchemaMigrationDialog } from '../components/SchemaMigrationDialog.tsx'
 import { AppContext } from './app-context.ts'
 import { appReducer } from './appReducer.ts'
@@ -51,6 +52,9 @@ function getBootState(): {
 export function AppProvider({ children }: { children: ReactNode }) {
   const boot = useMemo(() => getBootState(), [])
   const [state, dispatch] = useReducer(appReducer, boot.initial)
+  const { showToast } = useToast()
+
+  const storageAvailable = useMemo(() => isStorageAvailable(), [])
 
   const [migrationOpen, setMigrationOpen] = useState(boot.needsMigrationPrompt)
   const migrationSourceRef = useRef(boot.migrationSource)
@@ -59,13 +63,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const persistEnabledRef = useRef(!boot.needsMigrationPrompt)
 
   useEffect(() => {
-    if (!persistEnabledRef.current) return
+    if (!persistEnabledRef.current || !storageAvailable) return
     try {
       saveState(state)
     } catch (e) {
-      console.error('saveState failed', e)
+      const isQuota =
+        e instanceof DOMException &&
+        (e.name === 'QuotaExceededError' || e.code === 22)
+      if (isQuota) {
+        showToast('Progress could not be saved — storage is full.')
+      } else {
+        console.error('saveState failed', e)
+      }
     }
-  }, [state])
+  }, [state, storageAvailable, showToast])
 
   const onMigrationConfirm = useCallback(() => {
     persistEnabledRef.current = true
@@ -84,7 +95,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setMigrationOpen(false)
   }, [])
 
-  const value = useMemo(() => ({ state, dispatch }), [state])
+  const value = useMemo(
+    () => ({ state, dispatch, storageAvailable }),
+    [state, storageAvailable],
+  )
 
   return (
     <AppContext.Provider value={value}>
