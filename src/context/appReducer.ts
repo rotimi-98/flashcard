@@ -22,7 +22,12 @@ export type AppAction =
     }
   | {
       type: 'END_SESSION'
-      payload: { id: string; endedAt?: string }
+      payload: {
+        id: string
+        endedAt?: string
+        correctCount?: number
+        wrongCount?: number
+      }
     }
   | { type: 'RESET_WRONG_FLAGS'; payload: { cardIds: string[] } }
   | { type: 'RESET_ALL_PROGRESS' }
@@ -112,11 +117,19 @@ export function appReducer(state: PersistedState, action: AppAction): PersistedS
     }
 
     case 'END_SESSION': {
-      const endedAt = action.payload.endedAt ?? new Date().toISOString()
+      const { id, endedAt: rawEndedAt, correctCount, wrongCount } = action.payload
+      const endedAt = rawEndedAt ?? new Date().toISOString()
       return {
         ...state,
         sessions: state.sessions.map((s) =>
-          s.id === action.payload.id ? { ...s, endedAt } : s,
+          s.id === id
+            ? {
+                ...s,
+                endedAt,
+                ...(correctCount !== undefined ? { correctCount } : {}),
+                ...(wrongCount !== undefined ? { wrongCount } : {}),
+              }
+            : s,
         ),
       }
     }

@@ -8,8 +8,8 @@ import {
 } from 'react'
 import { CharacterPicker } from '../components/CharacterPicker/CharacterPicker.tsx'
 import { useApp } from '../context/useApp.ts'
+import { useSpeech } from '../hooks/useSpeech.ts'
 import type { Flashcard } from '../types/index.ts'
-import { speak } from '../utils/speak.ts'
 import styles from './ManageCardsPage.module.css'
 
 // ---------------------------------------------------------------------------
@@ -232,6 +232,7 @@ function CardForm({
 
 export function ManageCardsPage() {
   const { state, dispatch } = useApp()
+  const { speak, isSpeaking, isSupported: speechSupported } = useSpeech(state.settings)
   const [search, setSearch] = useState('')
   const [showForm, setShowForm] = useState(false)
   const [editCard, setEditCard] = useState<Flashcard | null>(null)
@@ -246,11 +247,6 @@ export function ManageCardsPage() {
         c.english.toLowerCase().includes(q),
     )
   }, [state.cards, search])
-
-  const handleSpeak = useCallback(
-    (text: string, lang: 'yo' | 'en-US') => speak(text, lang),
-    [],
-  )
 
   const handleFormDone = useCallback(() => {
     setShowForm(false)
@@ -315,14 +311,18 @@ export function ManageCardsPage() {
             </div>
 
             <div className={styles.rowActions}>
-              <button
-                type="button"
-                className={styles.iconBtn}
-                onClick={() => handleSpeak(card.yoruba, 'yo')}
-                aria-label={`Pronounce ${card.yoruba}`}
-              >
-                🔊
-              </button>
+              {speechSupported && (
+                <button
+                  type="button"
+                  className={`${styles.iconBtn} ${!state.settings.speechEnabled ? styles.iconDisabled : ''}`}
+                  onClick={() => speak(card.yoruba, 'yo')}
+                  disabled={!state.settings.speechEnabled}
+                  aria-label={`Pronounce ${card.yoruba}`}
+                  aria-busy={isSpeaking}
+                >
+                  {isSpeaking ? '⏹️' : '🔊'}
+                </button>
+              )}
 
               {!card.isPreloaded && (
                 <button

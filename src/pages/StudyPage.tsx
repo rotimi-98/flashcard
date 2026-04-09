@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FlashCard } from '../components/Card/FlashCard.tsx'
 import { useApp } from '../context/useApp.ts'
 import { useFlashcards } from '../hooks/useFlashcards.ts'
-import { speak } from '../utils/speak.ts'
+import { useSpeech } from '../hooks/useSpeech.ts'
 import styles from './StudyPage.module.css'
 import shell from './pageShell.module.css'
 
@@ -12,6 +12,7 @@ export function StudyPage() {
   const navigate = useNavigate()
   const isRedo = pathname.endsWith('/redo')
   const { dispatch, state } = useApp()
+  const { speak, isSpeaking, isSupported: speechSupported } = useSpeech(state.settings)
 
   const {
     currentCard,
@@ -58,33 +59,49 @@ export function StudyPage() {
     if (!isSessionComplete || !sessionIdRef.current) return
     dispatch({
       type: 'END_SESSION',
-      payload: { id: sessionIdRef.current },
+      payload: {
+        id: sessionIdRef.current,
+        correctCount,
+        wrongCount,
+      },
     })
-  }, [isSessionComplete, dispatch])
-
-  const handleSpeak = useCallback(
-    (text: string, lang: 'yo' | 'en-US') => speak(text, lang),
-    [],
-  )
+  }, [isSessionComplete, dispatch, correctCount, wrongCount])
 
   const hasWrongCards = state.records.some((r) => r.isMarkedWrong)
 
-  const handleStudyAgain = useCallback(() => {
-    const id = crypto.randomUUID()
-    sessionIdRef.current = id
-    dispatch({
-      type: 'START_SESSION',
-      payload: {
-        id,
-        startedAt: new Date().toISOString(),
-        mode: isRedo ? 'redo-wrong' : 'flashcard',
-        totalCards,
-        correctCount: 0,
-        wrongCount: 0,
-      },
-    })
-    restart()
-  }, [dispatch, isRedo, totalCards, restart])
+  const startNewSession = useCallback(
+    (mode: 'flashcard' | 'redo-wrong') => {
+      const newTotal = restart()
+      if (newTotal === 0) return
+      const id = crypto.randomUUID()
+      sessionIdRef.current = id
+      dispatch({
+        type: 'START_SESSION',
+        payload: {
+          id,
+          startedAt: new Date().toISOString(),
+          mode,
+          totalCards: newTotal,
+          correctCount: 0,
+          wrongCount: 0,
+        },
+      })
+    },
+    [dispatch, restart],
+  )
+
+  const handleStudyAgain = useCallback(
+    () => startNewSession(isRedo ? 'redo-wrong' : 'flashcard'),
+    [startNewSession, isRedo],
+  )
+
+  const handleRedoWrong = useCallback(() => {
+    if (isRedo) {
+      startNewSession('redo-wrong')
+    } else {
+      navigate('/study/redo')
+    }
+  }, [isRedo, startNewSession, navigate])
 
   // Empty deck state.
   if (totalCards === 0) {
@@ -150,7 +167,7 @@ export function StudyPage() {
               <button
                 type="button"
                 className={`${styles.summaryBtn} ${styles.redoBtn}`}
-                onClick={() => navigate('/study/redo')}
+                onClick={handleRedoWrong}
               >
                 Redo wrong cards
               </button>
@@ -206,9 +223,11 @@ export function StudyPage() {
           onFlip={flip}
           onCorrect={markCorrect}
           onWrong={markWrong}
-          onSpeak={handleSpeak}
-          isSpeaking={false}
+          onSpeak={speak}
+          isSpeaking={isSpeaking}
           hideActions={isAssessed}
+          speechDisabled={!state.settings.speechEnabled}
+          speechSupported={speechSupported}
         />
       )}
 

@@ -1,0 +1,118 @@
+.wrapper {
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 0.5rem;
+}
+
+.score {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent, #0f766e);
+  margin: 0 0 1.5rem;
+}
+
+.missedSection {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.missedHeading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 0.6rem;
+}
+
+.missedList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.missedItem {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border, #e8e4dc);
+  background: var(--bg, #faf8f5);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.missedQ {
+  flex: 1;
+  min-width: 0;
+  color: var(--accent-rose, #e11d48);
+  font-weight: 600;
+}
+
+.missedA {
+  flex-shrink: 0;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.actionBtn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  min-height: 48px;
+  border: 2px solid var(--border, #e8e4dc);
+  border-radius: 12px;
+  background: var(--bg, #faf8f5);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-h, #1c1917);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.actionBtn:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent, #0f766e);
+}
+
+.actionBtn:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 2px;
+}
+
+.retryBtn {
+  background: var(--accent-bg);
+  border-color: var(--accent, #0f766e);
+  color: var(--accent, #0f766e);
+}
+
+@media (prefers-color-scheme: dark) {
+  .missedItem {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+
+  .missedA { color: #4ade80; }
+  .missedQ { color: #fb7185; }
+
+  .actionBtn {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+}

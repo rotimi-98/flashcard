@@ -109,8 +109,13 @@
   transition: background 0.15s ease;
 }
 
-.speakBtn:hover {
+.speakBtn:hover:not(:disabled) {
   background: var(--accent-bg);
+}
+
+.speakDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 .speakBtn:focus-visible {

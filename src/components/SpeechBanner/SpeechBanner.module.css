@@ -1,0 +1,48 @@
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  margin: 0 auto 1rem;
+  max-width: 44rem;
+  background: color-mix(in srgb, var(--accent-warm, #d97706) 12%, var(--bg, #faf8f5));
+  border: 1px solid color-mix(in srgb, var(--accent-warm, #d97706) 30%, var(--border, #e8e4dc));
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text, #5c5668);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.dismiss {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text, #5c5668);
+  opacity: 0.6;
+  padding: 0;
+  transition: opacity 0.15s ease;
+}
+
+.dismiss:hover {
+  opacity: 1;
+}
+
+.dismiss:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

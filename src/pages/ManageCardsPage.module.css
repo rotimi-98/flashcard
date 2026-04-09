@@ -277,9 +277,14 @@
     color 0.15s ease;
 }
 
-.iconBtn:hover {
+.iconBtn:hover:not(:disabled) {
   background: var(--accent-bg);
   color: var(--accent, #0f766e);
+}
+
+.iconDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 .iconBtn:focus-visible {

@@ -11,6 +11,10 @@ export interface FlashCardProps {
   isSpeaking: boolean
   /** Hide assessment buttons when the card has already been assessed. */
   hideActions?: boolean
+  /** When true, speaker buttons are greyed out and non-interactive. */
+  speechDisabled?: boolean
+  /** When false, speaker buttons are hidden entirely (API unsupported). */
+  speechSupported?: boolean
 }
 
 /**
@@ -27,6 +31,8 @@ export function FlashCard({
   onSpeak,
   isSpeaking,
   hideActions = false,
+  speechDisabled = false,
+  speechSupported = true,
 }: FlashCardProps) {
   const showActions = isFlipped && !hideActions
 
@@ -52,36 +58,42 @@ export function FlashCard({
         >
           {/* Front face — Yoruba */}
           <div className={`${styles.face} ${styles.front}`}>
-            <button
-              className={styles.speakBtn}
-              onClick={(e) => {
-                e.stopPropagation()
-                onSpeak(card.yoruba, 'yo')
-              }}
-              aria-label={`Pronounce ${card.yoruba}`}
-              aria-busy={isSpeaking}
-              type="button"
-            >
-              🔊
-            </button>
+            {speechSupported && (
+              <button
+                className={`${styles.speakBtn} ${speechDisabled ? styles.speakDisabled : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  if (!speechDisabled) onSpeak(card.yoruba, 'yo')
+                }}
+                aria-label={`Pronounce ${card.yoruba}`}
+                aria-busy={isSpeaking}
+                disabled={speechDisabled}
+                type="button"
+              >
+                {isSpeaking ? '⏹️' : '🔊'}
+              </button>
+            )}
             <p className={styles.word}>{card.yoruba}</p>
             <span className={styles.flipHint}>Tap to flip</span>
           </div>
 
           {/* Back face — English */}
           <div className={`${styles.face} ${styles.back}`}>
-            <button
-              className={styles.speakBtn}
-              onClick={(e) => {
-                e.stopPropagation()
-                onSpeak(card.english, 'en-US')
-              }}
-              aria-label={`Pronounce ${card.english}`}
-              aria-busy={isSpeaking}
-              type="button"
-            >
-              🔊
-            </button>
+            {speechSupported && (
+              <button
+                className={`${styles.speakBtn} ${speechDisabled ? styles.speakDisabled : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  if (!speechDisabled) onSpeak(card.english, 'en-US')
+                }}
+                aria-label={`Pronounce ${card.english}`}
+                aria-busy={isSpeaking}
+                disabled={speechDisabled}
+                type="button"
+              >
+                {isSpeaking ? '⏹️' : '🔊'}
+              </button>
+            )}
             <p className={styles.translation}>{card.english}</p>
             {card.notes && <p className={styles.notes}>{card.notes}</p>}
           </div>

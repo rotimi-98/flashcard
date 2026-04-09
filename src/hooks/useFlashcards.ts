@@ -18,8 +18,8 @@ export interface UseFlashcardsReturn {
   goPrev: () => void
   markCorrect: () => void
   markWrong: () => void
-  /** Reshuffles all cards and resets the session. */
-  restart: () => void
+  /** Reshuffles all cards and resets the session. Returns the new deck size. */
+  restart: () => number
 }
 
 /**
@@ -65,9 +65,12 @@ export function useFlashcards(redoWrongOnly = false): UseFlashcardsReturn {
     if (!currentCard || assessedSet.current.has(index)) return
     assessedSet.current.add(index)
     dispatch({ type: 'RECORD_OUTCOME', payload: { cardId: currentCard.id, correct: true } })
+    if (redoWrongOnly) {
+      dispatch({ type: 'RESET_WRONG_FLAGS', payload: { cardIds: [currentCard.id] } })
+    }
     setCorrectCount((c) => c + 1)
     advanceOrFinish()
-  }, [currentCard, index, dispatch, advanceOrFinish])
+  }, [currentCard, index, dispatch, advanceOrFinish, redoWrongOnly])
 
   const markWrong = useCallback(() => {
     if (!currentCard || assessedSet.current.has(index)) return
@@ -91,7 +94,7 @@ export function useFlashcards(redoWrongOnly = false): UseFlashcardsReturn {
     setIsFlipped(false)
   }, [index])
 
-  const restart = useCallback(() => {
+  const restart = useCallback((): number => {
     const reshuffled = fisherYatesShuffle(eligibleCards)
     setDeck(reshuffled)
     setIndex(0)
@@ -100,6 +103,7 @@ export function useFlashcards(redoWrongOnly = false): UseFlashcardsReturn {
     setCorrectCount(0)
     setWrongCount(0)
     setIsSessionComplete(false)
+    return reshuffled.length
   }, [eligibleCards])
 
   return {

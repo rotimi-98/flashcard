@@ -1,0 +1,195 @@
+/* ---------- Shared container ---------- */
+.container {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0.5rem 0 2rem;
+}
+
+.pageTitle {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 1.25rem;
+  text-align: center;
+}
+
+/* ---------- Setup screen ---------- */
+.setup {
+  max-width: 28rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fieldLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text, #5c5668);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.optionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.optionBtn {
+  flex: 1;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 2px solid var(--border, #e8e4dc);
+  border-radius: 10px;
+  background: var(--bg, #faf8f5);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text, #5c5668);
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.optionBtn:hover:not(:disabled) {
+  border-color: var(--accent, #0f766e);
+  color: var(--text-h, #1c1917);
+}
+
+.optionBtn:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 2px;
+}
+
+.optionBtnActive {
+  background: var(--accent-bg);
+  border-color: var(--accent, #0f766e);
+  color: var(--accent, #0f766e);
+}
+
+.optionBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.helperText {
+  font-size: 0.82rem;
+  color: var(--text, #5c5668);
+  margin: 0.15rem 0 0;
+  opacity: 0.8;
+}
+
+.startBtn {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent, #0f766e);
+  color: #fff;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-top: 0.5rem;
+}
+
+.startBtn:hover:not(:disabled) {
+  background: var(--accent-bright, #14b8a6);
+}
+
+.startBtn:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 3px;
+}
+
+.startBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Active quiz ---------- */
+.quizProgress {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.quizProgressText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text, #5c5668);
+  margin: 0 0 0.5rem;
+}
+
+.quizBar {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-muted, #f3f0ea);
+  overflow: hidden;
+}
+
+.quizBarFill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent, #0f766e), var(--accent-bright, #14b8a6));
+  transition: width 0.3s ease;
+}
+
+/* ---------- Empty state ---------- */
+.emptyState {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.emptyTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 0.5rem;
+}
+
+.emptyText {
+  font-size: 0.92rem;
+  color: var(--text, #5c5668);
+  margin: 0;
+}
+
+.emptyLink {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 10px;
+  background: var(--accent, #0f766e);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.emptyLink:hover {
+  background: var(--accent-bright, #14b8a6);
+}
+
+/* ---------- Dark mode ---------- */
+@media (prefers-color-scheme: dark) {
+  .optionBtn {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+
+  .optionBtnActive {
+    background: color-mix(in srgb, var(--accent-bg) 50%, var(--bg-muted, #292524));
+    border-color: var(--accent, #0f766e);
+  }
+}
