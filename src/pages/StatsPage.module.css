@@ -1,0 +1,340 @@
+/* ---------- Container ---------- */
+.container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 0 2.5rem;
+}
+
+.pageTitle {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 1.25rem;
+}
+
+.pageTitle::after {
+  content: '';
+  display: block;
+  margin-top: 0.5rem;
+  width: min(10rem, 55%);
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-bright, #14b8a6),
+    var(--accent-warm, #d97706)
+  );
+}
+
+/* ---------- KPI grid ---------- */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.kpiCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 1rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border, #e8e4dc);
+  background: var(--bg, #faf8f5);
+  text-align: center;
+}
+
+.kpiValue {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  line-height: 1.2;
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  color: var(--text, #5c5668);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.kpiAccent { color: var(--accent, #0f766e); }
+.kpiGreen { color: #15803d; }
+.kpiRose { color: var(--accent-rose, #e11d48); }
+
+/* ---------- Section headings ---------- */
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 0.75rem;
+}
+
+/* ---------- Charts ---------- */
+.chartSection {
+  margin-bottom: 2rem;
+}
+
+.chartWrap {
+  border-radius: 14px;
+  border: 1px solid var(--border, #e8e4dc);
+  background: var(--bg, #faf8f5);
+  padding: 1rem 0.5rem 0.5rem;
+}
+
+.chartEmpty {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.92rem;
+  color: var(--text, #5c5668);
+}
+
+/* ---------- Card Performance table ---------- */
+.tableSection {
+  margin-bottom: 2rem;
+}
+
+.tableSearchRow {
+  margin-bottom: 0.75rem;
+}
+
+.tableSearch {
+  width: 100%;
+  max-width: 20rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border, #e8e4dc);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text-h, #1c1917);
+  background: var(--bg, #faf8f5);
+  transition: border-color 0.15s ease;
+}
+
+.tableSearch:focus {
+  outline: none;
+  border-color: var(--accent, #0f766e);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+.tableScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  border: 1px solid var(--border, #e8e4dc);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 38rem;
+  font-size: 0.88rem;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-muted, #f3f0ea);
+  padding: 0.6rem 0.65rem;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text, #5c5668);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 2px solid var(--border, #e8e4dc);
+  transition: color 0.15s ease;
+}
+
+.table th:hover {
+  color: var(--text-h, #1c1917);
+}
+
+.sortIndicator {
+  margin-left: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--border, #e8e4dc);
+  color: var(--text-h, #1c1917);
+  white-space: nowrap;
+}
+
+.table tbody tr:hover {
+  background: var(--accent-bg);
+}
+
+.muted {
+  color: var(--text, #5c5668);
+  opacity: 0.6;
+}
+
+/* ---------- Reset button ---------- */
+.resetSection {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.resetBtn {
+  padding: 0.65rem 1.5rem;
+  border: 2px solid var(--accent-rose, #e11d48);
+  border-radius: 10px;
+  background: none;
+  color: var(--accent-rose, #e11d48);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.resetBtn:hover {
+  background: var(--accent-rose, #e11d48);
+  color: #fff;
+}
+
+.resetBtn:focus-visible {
+  outline: 2px solid var(--accent-rose, #e11d48);
+  outline-offset: 3px;
+}
+
+/* ---------- Reset confirmation dialog ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.dialog {
+  background: var(--bg, #faf8f5);
+  color: var(--text-h, #1c1917);
+  max-width: 24rem;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 1px solid var(--border, #e8e4dc);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dialogTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.dialogText {
+  font-size: 0.95rem;
+  color: var(--text, #5c5668);
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.dialogCancel {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--border, #e8e4dc);
+  border-radius: 8px;
+  background: var(--bg, #faf8f5);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text, #5c5668);
+  cursor: pointer;
+}
+
+.dialogCancel:hover {
+  border-color: var(--accent, #0f766e);
+}
+
+.dialogCancel:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 2px;
+}
+
+.dialogConfirm {
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-rose, #e11d48);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dialogConfirm:hover {
+  background: #be123c;
+}
+
+.dialogConfirm:focus-visible {
+  outline: 2px solid var(--accent-rose, #e11d48);
+  outline-offset: 2px;
+}
+
+/* ---------- Dark mode ---------- */
+@media (prefers-color-scheme: dark) {
+  .kpiCard {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+
+  .kpiGreen { color: #4ade80; }
+  .kpiRose { color: #fb7185; }
+
+  .chartWrap {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+
+  .tableSearch {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+    color: var(--text-h, #fafaf9);
+  }
+
+  .tableScroll {
+    border-color: var(--border, #44403c);
+  }
+
+  .table th {
+    background: var(--bg, #1c1917);
+    border-color: var(--border, #44403c);
+  }
+
+  .table td {
+    border-color: var(--border, #44403c);
+    color: var(--text-h, #fafaf9);
+  }
+
+  .dialog {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+
+  .dialogCancel {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+  }
+}
