@@ -156,6 +156,11 @@
   color: var(--text-h, #1c1917);
 }
 
+.table th:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: -2px;
+}
+
 .sortIndicator {
   margin-left: 0.3rem;
   font-size: 0.7rem;

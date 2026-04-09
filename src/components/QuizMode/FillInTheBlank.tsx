@@ -148,9 +148,10 @@ export function FillInTheBlank({
 
         {answered && (
           <>
-            {hint && <p className={styles.hint}>{hint}</p>}
+            {hint && <p className={styles.hint} aria-live="assertive">{hint}</p>}
             <p
               className={`${styles.feedback} ${isCorrect ? styles.feedbackCorrect : styles.feedbackWrong}`}
+              aria-live="assertive"
             >
               {isCorrect
                 ? 'Correct!'

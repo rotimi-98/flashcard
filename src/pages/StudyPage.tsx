@@ -208,6 +208,7 @@ export function StudyPage() {
           aria-valuenow={currentIndex + 1}
           aria-valuemin={1}
           aria-valuemax={totalCards}
+          aria-label={`Study progress: card ${currentIndex + 1} of ${totalCards}`}
         >
           <div
             className={styles.progressFill}

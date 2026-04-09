@@ -7,6 +7,7 @@ const LINKS: { to: string; label: string; end?: boolean }[] = [
   { to: '/quiz', label: 'Quiz' },
   { to: '/cards', label: 'Cards' },
   { to: '/stats', label: 'Stats' },
+  { to: '/settings', label: '⚙ Settings' },
 ]
 
 export function Navbar() {

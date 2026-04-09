@@ -420,6 +420,14 @@ export function StatsPage() {
                   <th
                     key={col.key}
                     onClick={() => handleSort(col.key)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        handleSort(col.key)
+                      }
+                    }}
+                    tabIndex={0}
+                    role="columnheader"
                     aria-sort={
                       sortCol === col.key
                         ? sortAsc
@@ -427,6 +435,7 @@ export function StatsPage() {
                           : 'descending'
                         : 'none'
                     }
+                    aria-label={`Sort by ${col.label}`}
                   >
                     {col.label}
                     {sortCol === col.key && (

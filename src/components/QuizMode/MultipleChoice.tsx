@@ -144,6 +144,7 @@ export function MultipleChoice({
         <>
           <p
             className={`${styles.feedback} ${isCorrectSelection ? styles.feedbackCorrect : styles.feedbackWrong}`}
+            aria-live="assertive"
           >
             {isCorrectSelection ? 'Correct!' : `The answer is: ${question.correctAnswer}`}
           </p>

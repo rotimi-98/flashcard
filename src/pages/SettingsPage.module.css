@@ -1,0 +1,246 @@
+.container {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0 0 2rem;
+}
+
+.pageTitle {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-h, #1c1917);
+  margin: 0 0 1.25rem;
+}
+
+.pageTitle::after {
+  content: '';
+  display: block;
+  margin-top: 0.5rem;
+  width: min(10rem, 55%);
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-bright, #14b8a6),
+    var(--accent-warm, #d97706)
+  );
+}
+
+/* ---------- Section ---------- */
+.section {
+  margin-bottom: 1.75rem;
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text, #5c5668);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border, #e8e4dc);
+}
+
+/* ---------- Setting row ---------- */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+}
+
+.row + .row {
+  border-top: 1px solid color-mix(in srgb, var(--border, #e8e4dc) 50%, transparent);
+}
+
+.rowLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-h, #1c1917);
+}
+
+.rowDesc {
+  font-size: 0.8rem;
+  color: var(--text, #5c5668);
+  margin: 0.1rem 0 0;
+}
+
+/* ---------- Toggle switch ---------- */
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--border, #d6d3cd);
+  transition: background 0.2s ease;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.toggleOn {
+  background: var(--accent, #0f766e);
+}
+
+.toggleOn::after {
+  transform: translateX(20px);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 2px;
+}
+
+/* ---------- Slider ---------- */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.slider {
+  flex: 1;
+  min-width: 0;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--bg-muted, #f3f0ea);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent, #0f766e);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent, #0f766e);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.slider:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.sliderValue {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent, #0f766e);
+  min-width: 3rem;
+  text-align: right;
+}
+
+/* ---------- Select dropdown ---------- */
+.select {
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--border, #e8e4dc);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text-h, #1c1917);
+  background: var(--bg, #faf8f5);
+  cursor: pointer;
+  max-width: 16rem;
+  min-width: 0;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--accent, #0f766e);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+/* ---------- Number input ---------- */
+.numberInput {
+  width: 5rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border, #e8e4dc);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text-h, #1c1917);
+  background: var(--bg, #faf8f5);
+  text-align: center;
+}
+
+.numberInput:focus {
+  outline: none;
+  border-color: var(--accent, #0f766e);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+.numberInput:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Notice ---------- */
+.notice {
+  font-size: 0.82rem;
+  color: var(--text, #5c5668);
+  background: color-mix(in srgb, var(--accent-warm, #d97706) 8%, var(--bg, #faf8f5));
+  border: 1px solid color-mix(in srgb, var(--accent-warm, #d97706) 20%, var(--border, #e8e4dc));
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* ---------- Dark mode ---------- */
+@media (prefers-color-scheme: dark) {
+  .select {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+    color: var(--text-h, #fafaf9);
+  }
+
+  .numberInput {
+    background: var(--bg-muted, #292524);
+    border-color: var(--border, #44403c);
+    color: var(--text-h, #fafaf9);
+  }
+
+  .slider {
+    background: var(--border, #44403c);
+  }
+
+  .toggle {
+    background: var(--border, #44403c);
+  }
+
+  .toggleOn {
+    background: var(--accent, #0f766e);
+  }
+}

@@ -338,6 +338,7 @@ export function QuizPage() {
           aria-valuenow={questionIndex + 1}
           aria-valuemin={1}
           aria-valuemax={questions.length}
+          aria-label={`Quiz progress: question ${questionIndex + 1} of ${questions.length}`}
         >
           <div
             className={styles.quizBarFill}

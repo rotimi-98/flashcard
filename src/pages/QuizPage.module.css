@@ -181,6 +181,11 @@
   background: var(--accent-bright, #14b8a6);
 }
 
+.emptyLink:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 3px;
+}
+
 /* ---------- Dark mode ---------- */
 @media (prefers-color-scheme: dark) {
   .optionBtn {

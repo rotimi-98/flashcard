@@ -19,6 +19,12 @@
   transform: rotateY(180deg);
 }
 
+.card:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;
@@ -181,6 +187,26 @@
 
 .wrong:hover {
   background: rgba(225, 29, 72, 0.2);
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actionBtn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actionBtn {
+    transition: none;
+  }
+
+  .actionBtn:active {
+    transform: none;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

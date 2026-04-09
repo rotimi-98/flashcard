@@ -68,6 +68,17 @@ test.describe('Navbar routing', () => {
     ).toBeVisible()
   })
 
+  test('navigates to Settings', async ({ page }) => {
+    await page
+      .getByRole('navigation', { name: 'Main navigation' })
+      .getByRole('link', { name: /settings/i })
+      .click()
+    await expect(page).toHaveURL(/\/settings$/)
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Settings' }),
+    ).toBeVisible()
+  })
+
   test('navigates to Home', async ({ page }) => {
     await page.goto('/quiz')
     await page
