@@ -47,7 +47,7 @@ export interface StudySession {
 /** Application settings */
 export interface AppSettings {
   speechEnabled: boolean
-  /** 0.5 – 2.0 (default: 0.85) */
+  /** 0.5 – 1.5 (default: 0.85) */
   speechRate: number
   /** SpeechSynthesis voice name, if overridden */
   speechVoice?: string

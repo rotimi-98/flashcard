@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useApp } from '../context/useApp.ts'
 import styles from './HomePage.module.css'
 
+/** Landing page with navigation cards. Shows a "Redo wrong cards" option when applicable. */
 export function HomePage() {
   const { state } = useApp()
   const hasWrongCards = state.records.some((r) => r.isMarkedWrong)

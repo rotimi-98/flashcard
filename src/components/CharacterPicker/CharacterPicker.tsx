@@ -8,6 +8,9 @@ import {
 } from 'react'
 import styles from './CharacterPicker.module.css'
 
+/** Number of columns in the character grid — must match the CSS grid layout. */
+const GRID_COLUMNS = 5
+
 // ---------------------------------------------------------------------------
 // Character data — grouped by base letter, lowercase and uppercase variants.
 // ---------------------------------------------------------------------------
@@ -187,8 +190,8 @@ export function CharacterPicker({ targetRef, onInsert }: CharacterPickerProps) {
       let nextIdx: number | null = null
       if (e.key === 'ArrowRight') nextIdx = Math.min(flatIdx + 1, allChars.length - 1)
       else if (e.key === 'ArrowLeft') nextIdx = Math.max(flatIdx - 1, 0)
-      else if (e.key === 'ArrowDown') nextIdx = Math.min(flatIdx + 5, allChars.length - 1)
-      else if (e.key === 'ArrowUp') nextIdx = Math.max(flatIdx - 5, 0)
+      else if (e.key === 'ArrowDown') nextIdx = Math.min(flatIdx + GRID_COLUMNS, allChars.length - 1)
+      else if (e.key === 'ArrowUp') nextIdx = Math.max(flatIdx - GRID_COLUMNS, 0)
 
       if (nextIdx !== null) {
         e.preventDefault()

@@ -88,8 +88,7 @@ export function FillInTheBlank({
     if (timerRef.current) clearTimeout(timerRef.current)
   }, [])
 
-  const yorubaWord =
-    direction === 'yo-en' ? question.card.yoruba : question.card.english
+  const promptLang = direction === 'yo-en' ? 'yo' : 'en-US'
 
   let inputCls = styles.input
   if (answered) {
@@ -107,9 +106,9 @@ export function FillInTheBlank({
           <button
             type="button"
             className={styles.speakBtn}
-            onClick={() => onSpeak(yorubaWord, 'yo')}
+            onClick={() => onSpeak(question.prompt, promptLang)}
             disabled={speechDisabled}
-            aria-label={`Pronounce ${yorubaWord}`}
+            aria-label={`Pronounce ${question.prompt}`}
             aria-busy={isSpeaking}
           >
             {isSpeaking ? '⏹️' : '🔊'}

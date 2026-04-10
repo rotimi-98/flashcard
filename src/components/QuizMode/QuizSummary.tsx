@@ -30,7 +30,7 @@ export function QuizSummary({
           <h2 className={styles.missedHeading}>Missed questions</h2>
           <div className={styles.missedList} role="list">
             {missed.map((r, i) => (
-              <div key={i} className={styles.missedItem} role="listitem">
+              <div key={`${r.card.id}-${i}`} className={styles.missedItem} role="listitem">
                 <span className={styles.missedQ}>
                   {r.card.yoruba} — {r.card.english}
                 </span>

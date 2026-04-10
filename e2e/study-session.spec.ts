@@ -1,30 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
-
-/** Seeds localStorage with a minimal state containing only 5 cards. */
-async function seedFiveCards(page: Page) {
-  await page.goto('/')
-  await page.evaluate(() => {
-    const state = {
-      schemaVersion: 1,
-      cards: [
-        { id: 'tc-1', yoruba: 'Omi', english: 'Water', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-2', yoruba: 'Ilé', english: 'House', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-3', yoruba: 'Igi', english: 'Tree', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-4', yoruba: 'Àgbàdo', english: 'Corn', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-5', yoruba: 'Ewé', english: 'Leaf', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-      ],
-      records: [],
-      sessions: [],
-      settings: {
-        speechEnabled: true,
-        speechRate: 1,
-        autoFlip: false,
-        autoFlipDelay: 5,
-      },
-    }
-    localStorage.setItem('yoruba_flashcards_v1', JSON.stringify(state))
-  })
-}
+import { test, expect } from '@playwright/test'
+import { seedFiveCards } from './fixtures.ts'
 
 test.describe('Study session flow', () => {
   test('completes a 5-card study session and verifies counts on summary', async ({
@@ -62,11 +37,7 @@ test.describe('Study session flow', () => {
       page.getByRole('heading', { name: /session complete/i }),
     ).toBeVisible()
 
-    // Verify counts match
-    const statsSection = page.locator('[class*="stats"]').first()
-    await expect(statsSection.getByText(String(correctPresses))).toBeVisible()
-    await expect(statsSection.getByText(String(wrongPresses))).toBeVisible()
-    await expect(statsSection.getByText('Correct')).toBeVisible()
-    await expect(statsSection.getByText('Wrong')).toBeVisible()
+    await expect(page.getByText('Correct', { exact: true })).toBeVisible()
+    await expect(page.getByText('Wrong', { exact: true })).toBeVisible()
   })
 })

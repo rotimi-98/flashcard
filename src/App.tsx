@@ -3,6 +3,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout/Layout.tsx'
 import { HomePage } from './pages/HomePage.tsx'
 
+// Lazy-loaded page routes — each page is code-split into its own chunk so the
+// initial bundle only includes HomePage. The `.then()` re-maps the named export
+// to a default export because React.lazy requires a default export.
 const StudyPage = lazy(() =>
   import('./pages/StudyPage.tsx').then((m) => ({ default: m.StudyPage })),
 )

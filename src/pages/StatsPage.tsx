@@ -15,6 +15,18 @@ import type { CardRecord, Flashcard } from '../types/index.ts'
 import styles from './StatsPage.module.css'
 
 // ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+/** A card is "mastered" after this many reviews with sufficient accuracy. */
+const MASTERY_MIN_REVIEWS = 3
+const MASTERY_MIN_ACCURACY = 0.8
+/** Number of recent sessions shown on the accuracy chart. */
+const ACCURACY_SESSION_WINDOW = 20
+/** Number of days shown on the activity chart. */
+const ACTIVITY_DAY_COUNT = 14
+
+// ---------------------------------------------------------------------------
 // KPI helpers
 // ---------------------------------------------------------------------------
 
@@ -35,7 +47,9 @@ function useKpis() {
         : 0
 
     const cardsMastered = records.filter(
-      (r) => r.timesStudied >= 3 && r.timesCorrect / r.timesStudied >= 0.8,
+      (r) =>
+        r.timesStudied >= MASTERY_MIN_REVIEWS &&
+        r.timesCorrect / r.timesStudied >= MASTERY_MIN_ACCURACY,
     ).length
 
     const cardsToRevisit = records.filter((r) => r.isMarkedWrong).length
@@ -61,7 +75,7 @@ function useAccuracyData() {
   return useMemo(() => {
     const completed = state.sessions
       .filter((s) => s.endedAt)
-      .slice(-20)
+      .slice(-ACCURACY_SESSION_WINDOW)
 
     return completed.map((s) => {
       const total = s.correctCount + s.wrongCount
@@ -82,7 +96,7 @@ function useActivityData() {
     const now = new Date()
     const days: { date: string; count: number }[] = []
 
-    for (let i = 13; i >= 0; i--) {
+    for (let i = ACTIVITY_DAY_COUNT - 1; i >= 0; i--) {
       const d = new Date(now)
       d.setDate(d.getDate() - i)
       const key = d.toISOString().slice(0, 10)

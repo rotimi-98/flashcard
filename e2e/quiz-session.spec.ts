@@ -1,30 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
-
-/** Seeds localStorage with a minimal 5-card deck. */
-async function seedFiveCards(page: Page) {
-  await page.goto('/')
-  await page.evaluate(() => {
-    const state = {
-      schemaVersion: 1,
-      cards: [
-        { id: 'tc-1', yoruba: 'Omi', english: 'Water', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-2', yoruba: 'Ilé', english: 'House', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-3', yoruba: 'Igi', english: 'Tree', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-4', yoruba: 'Àgbàdo', english: 'Corn', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-        { id: 'tc-5', yoruba: 'Ewé', english: 'Leaf', isPreloaded: false, createdAt: '2026-01-01T00:00:00Z' },
-      ],
-      records: [],
-      sessions: [],
-      settings: {
-        speechEnabled: true,
-        speechRate: 1,
-        autoFlip: false,
-        autoFlipDelay: 5,
-      },
-    }
-    localStorage.setItem('yoruba_flashcards_v1', JSON.stringify(state))
-  })
-}
+import { test, expect } from '@playwright/test'
+import { seedFiveCards } from './fixtures.ts'
 
 test.describe('Quiz session flow', () => {
   test('completes a 5-question MC quiz and verifies the score on summary', async ({
@@ -50,8 +25,9 @@ test.describe('Quiz session flow', () => {
         page.getByText(`Question ${i + 1} of 5`),
       ).toBeVisible()
 
-      // Click the first option button
-      const firstOption = page.locator('[class*="optBtn"]').first()
+      // Click the first answer option within the answer group
+      const answerGroup = page.getByRole('group', { name: 'Answer options' })
+      const firstOption = answerGroup.getByRole('button').first()
       await expect(firstOption).toBeVisible()
       await firstOption.click()
 
@@ -74,8 +50,7 @@ test.describe('Quiz session flow', () => {
     ).toBeVisible({ timeout: 5000 })
 
     // Verify the score shows "/ 5"
-    const scoreElement = page.locator('[class*="score"]').first()
-    await expect(scoreElement).toContainText('/ 5')
+    await expect(page.getByText(/\/ 5/)).toBeVisible()
 
     // Verify navigation buttons
     await expect(

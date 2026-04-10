@@ -13,9 +13,9 @@ test.describe('Home page', () => {
 
   test('home cards link to study, quiz, and manage cards', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('a[href="/study"]').first()).toBeVisible()
-    await expect(page.locator('a[href="/quiz"]').first()).toBeVisible()
-    await expect(page.locator('a[href="/cards"]').first()).toBeVisible()
+    await expect(page.getByRole('link', { name: /study/i }).first()).toBeVisible()
+    await expect(page.getByRole('link', { name: /quiz/i }).first()).toBeVisible()
+    await expect(page.getByRole('link', { name: /cards/i }).first()).toBeVisible()
   })
 })
 

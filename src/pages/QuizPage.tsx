@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FillInTheBlank } from '../components/QuizMode/FillInTheBlank.tsx'
 import { MultipleChoice } from '../components/QuizMode/MultipleChoice.tsx'
@@ -24,6 +24,18 @@ type Phase = 'setup' | 'active' | 'summary'
 // Helpers
 // ---------------------------------------------------------------------------
 
+/** Converts a single card into a quiz question for the given direction. */
+function toQuizQuestion(card: Flashcard, direction: QuizDirection): QuizQuestion {
+  const prompt = direction === 'yo-en' ? card.yoruba : card.english
+  const correctAnswer = direction === 'yo-en' ? card.english : card.yoruba
+  const alternates = direction === 'yo-en' ? parseAlternates(card.notes) : []
+  return { card, prompt, correctAnswer, alternates }
+}
+
+function quizSessionMode(type: QuizType): 'quiz-fill-blank' | 'quiz-multiple-choice' {
+  return type === 'fill-blank' ? 'quiz-fill-blank' : 'quiz-multiple-choice'
+}
+
 function buildQuestions(
   cards: Flashcard[],
   count: QuestionCount,
@@ -32,15 +44,7 @@ function buildQuestions(
   const shuffled = fisherYatesShuffle(cards)
   const limited =
     count === 'all' ? shuffled : shuffled.slice(0, Math.min(count, cards.length))
-
-  return limited.map((card) => {
-    const prompt = direction === 'yo-en' ? card.yoruba : card.english
-    const correctAnswer = direction === 'yo-en' ? card.english : card.yoruba
-    const alternates =
-      direction === 'yo-en' ? parseAlternates(card.notes) : []
-
-    return { card, prompt, correctAnswer, alternates }
-  })
+  return limited.map((card) => toQuizQuestion(card, direction))
 }
 
 // ---------------------------------------------------------------------------
@@ -185,14 +189,6 @@ export function QuizPage() {
   const [results, setResults] = useState<QuizResult[]>([])
   const sessionIdRef = useRef<string | null>(null)
 
-  const sessionMode = useMemo(
-    () =>
-      config?.type === 'fill-blank'
-        ? ('quiz-fill-blank' as const)
-        : ('quiz-multiple-choice' as const),
-    [config],
-  )
-
   const handleStart = useCallback(
     (cfg: QuizConfig) => {
       const qs = buildQuestions(state.cards, cfg.questionCount, cfg.direction)
@@ -204,16 +200,12 @@ export function QuizPage() {
 
       const id = crypto.randomUUID()
       sessionIdRef.current = id
-      const mode =
-        cfg.type === 'fill-blank'
-          ? 'quiz-fill-blank'
-          : 'quiz-multiple-choice'
       dispatch({
         type: 'START_SESSION',
         payload: {
           id,
           startedAt: new Date().toISOString(),
-          mode,
+          mode: quizSessionMode(cfg.type),
           totalCards: qs.length,
           correctCount: 0,
           wrongCount: 0,
@@ -258,17 +250,7 @@ export function QuizPage() {
     if (!config) return
     const missed = results.filter((r) => !r.isCorrect)
     const retryQuestions: QuizQuestion[] = fisherYatesShuffle(
-      missed.map((r) => {
-        const prompt =
-          config.direction === 'yo-en' ? r.card.yoruba : r.card.english
-        const correctAnswer =
-          config.direction === 'yo-en' ? r.card.english : r.card.yoruba
-        const alternates =
-          config.direction === 'yo-en'
-            ? parseAlternates(r.card.notes)
-            : []
-        return { card: r.card, prompt, correctAnswer, alternates }
-      }),
+      missed.map((r) => toQuizQuestion(r.card, config.direction)),
     )
 
     setQuestions(retryQuestions)
@@ -283,13 +265,13 @@ export function QuizPage() {
       payload: {
         id,
         startedAt: new Date().toISOString(),
-        mode: sessionMode,
+        mode: quizSessionMode(config.type),
         totalCards: retryQuestions.length,
         correctCount: 0,
         wrongCount: 0,
       },
     })
-  }, [config, results, dispatch, sessionMode])
+  }, [config, results, dispatch])
 
   const handleNewQuiz = useCallback(() => {
     setPhase('setup')

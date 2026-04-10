@@ -158,5 +158,8 @@ export function appReducer(state: PersistedState, action: AppAction): PersistedS
         settings: { ...state.settings, ...action.payload },
       }
     }
+
+    default:
+      return state
   }
 }
