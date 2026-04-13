@@ -37,6 +37,9 @@ bundle-stats.html
 .eslintcache
 *.tsbuildinfo
 
+# Cursor
+.cursor/mcp.json
+
 # Editor
 .vscode/*
 !.vscode/extensions.json
